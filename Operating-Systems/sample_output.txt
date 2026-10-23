@@ -1,0 +1,16 @@
+PAGE REPLACEMENT ALGORITHM DEMONSTRATION
+
+Reference string:
+7 0 1 2 0 3 0 4 2 3 0 3 2
+
+Number of frames: 3
+
+Expected summary:
+
+Algorithm    Total Page Faults
+FIFO         10
+LRU          9
+Optimal      7
+
+Observation:
+For this reference string and frame capacity, Optimal produces the fewest page faults. It uses future knowledge that practical operating systems cannot generally know in advance.
