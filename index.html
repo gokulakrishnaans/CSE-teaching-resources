@@ -1,21 +1,84 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Interactive page replacement simulator and practice quiz for FIFO, LRU, and Optimal algorithms.">
+<meta name="description" content="Interactive page replacement simulator, practice quiz, challenge mode, and experiments for FIFO, LRU, and Optimal algorithms."><meta name="author" content="Dr. Gokulakrishnan S, Associate Professor, Department of Computer Science and Engineering, PES University, Electronic City Campus">
 <title>Page Replacement Lab — Practice Edition</title>
 <style>
 :root{--navy:#142b54;--blue:#1765e8;--ink:#14213d;--muted:#526783;--line:#d4e0ef;--bg:#f2f6fc;--fault:#ffe2e4;--faultText:#b42332;--hit:#d9efff;--hitText:#075ca8;--green:#e0f8e8;--gold:#fff5dc}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}header{background:linear-gradient(110deg,#142b54,#1d447d);color:#fff;padding:19px clamp(15px,3vw,42px);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.brand{display:flex;gap:13px;align-items:center}.logo{font-size:38px}.brand h1{font-size:clamp(23px,2.6vw,31px);margin:0}.brand p{margin:3px 0 0;color:#e0ebff}nav{display:flex;gap:5px;flex-wrap:wrap}nav button{border:1px solid transparent;background:transparent;color:#fff;padding:10px 13px;border-radius:9px;font:inherit;cursor:pointer}nav button.active,nav button:hover{background:var(--blue)}main{max-width:1660px;margin:auto;padding:22px clamp(12px,2vw,30px)}.view{display:none}.view.visible{display:block}.panel,.card{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:0 5px 20px #1937640a}.panel{padding:21px;margin-bottom:15px}h2{font-size:23px;margin:0 0 5px}.sub{color:var(--muted);margin:0 0 17px}label{display:block;font-size:14px;font-weight:750;margin-bottom:7px;color:#294267}input,select{width:100%;min-height:44px;border:1px solid #b9cbe3;border-radius:9px;padding:10px 12px;font:inherit;color:var(--ink);background:#fff}.setup{display:grid;grid-template-columns:minmax(260px,1.6fr) minmax(170px,.65fr) auto;gap:16px;align-items:end}.stepper{display:flex}.stepper button{width:44px;border:1px solid #b9cbe3;background:#edf3fb;font-size:22px;cursor:pointer}.stepper button:first-child{border-radius:9px 0 0 9px}.stepper button:last-child{border-radius:0 9px 9px 0}.stepper input{max-width:75px;text-align:center;border-radius:0}.actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid #c9d7e9;background:#f1f6fc;color:#203757;border-radius:9px;padding:10px 14px;font:inherit;font-weight:750;cursor:pointer}.btn:hover{background:#e6effb}.btn.primary{background:var(--blue);border-color:var(--blue);color:#fff}.btn:disabled{opacity:.45;cursor:not-allowed}.help,.notice{font-size:13px;color:var(--muted)}.error{display:none;color:var(--faultText);font-weight:700}.refhead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:20px}.legend{display:flex;gap:12px;font-size:13px;color:var(--muted)}.swatch{display:inline-block;width:12px;height:12px;border-radius:4px;margin-right:4px}.strip{display:flex;gap:7px;overflow-x:auto;padding:9px 3px 12px}.ref{flex:0 0 56px;text-align:center}.ref small{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}.chip{width:100%;height:39px;border:1px solid var(--line);border-radius:8px;background:#f1f5fb;font-weight:850;font-size:16px;cursor:pointer}.chip.fault{background:var(--fault);color:var(--faultText)}.chip.hit{background:var(--hit);color:var(--hitText)}.chip.current{outline:3px solid var(--navy);outline-offset:1px}.playback{display:grid;grid-template-columns:auto minmax(180px,1fr) minmax(260px,1.1fr);gap:15px;align-items:center;margin-top:8px}.progressrow{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.progress{height:9px;min-width:55px;flex:1;background:#e3eaf5;border-radius:20px;overflow:hidden}.fill{height:100%;background:var(--blue);width:0}.message{border:1px solid #cfe0f6;background:#f4f8ff;border-radius:10px;padding:11px 13px;min-height:65px;font-size:14px}.message strong{display:block}.message.fault{background:#fff3f4;border-color:#ffd1d6}.message.hit{background:#eff9ff;border-color:#c5e8ff}.algorithms{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin:14px 0}.card{padding:13px;min-width:0}.cardhead{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;padding:11px;border-radius:9px;background:#edf5ff}.card:nth-child(2) .cardhead{background:#edf9f1}.card:nth-child(3) .cardhead{background:#fff7e7}.name{font-size:20px;font-weight:850}.desc{font-size:13px;color:var(--muted)}.badge{padding:5px 8px;border-radius:7px;font-size:12px;font-weight:800;white-space:nowrap}.badges{display:flex;gap:5px}.badgef{background:var(--fault);color:var(--faultText)}.badgeh{background:var(--green);color:#08783d}.live{margin:11px 0;padding:11px;border:1px solid #c9def8;background:#f5f9ff;border-radius:9px}.livetitle{font-size:12px;font-weight:800;margin-bottom:7px;color:#294267}.frames{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.frame{background:white;border:1px solid #c8dcf5;border-radius:7px;text-align:center;padding:7px}.frame small{display:block;font-size:11px;color:var(--muted)}.frame strong{font-size:20px}.frame.changed{background:#fff8e9;border-color:#ed9a27}.tablewrap{overflow:auto;max-height:360px;border:1px solid var(--line);border-radius:7px}table{border-collapse:collapse;width:100%;font-size:12px;white-space:nowrap}th,td{padding:7px 8px;text-align:center;border-right:1px solid #e0e8f3;border-bottom:1px solid #e0e8f3}th{background:#edf3fb;position:sticky;top:0}td.fault{background:var(--fault);color:var(--faultText);font-weight:800}td.hit{background:var(--hit);color:var(--hitText);font-weight:800}tr.active td{outline:2px solid #4c82d5;outline-offset:-2px}.bottom{display:grid;grid-template-columns:1.5fr 1fr;gap:14px}.bars{height:190px;display:flex;align-items:end;gap:35px;padding:12px 20px 0;border-bottom:1px solid var(--line);background:repeating-linear-gradient(to top,transparent 0,transparent 37px,#e8eef7 38px,#e8eef7 39px)}.barcol{flex:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:6px}.bar{width:min(100%,105px);border-radius:6px 6px 0 0;background:linear-gradient(#4d91f4,#1765e8)}.barcol:nth-child(2) .bar{background:linear-gradient(#5fce8a,#1ca65b)}.barcol:nth-child(3) .bar{background:linear-gradient(#ffbb55,#f28b18)}.takeaway{background:#effbf3;border:1px solid #d2f2dd;border-radius:11px;padding:17px}.takeaway h3{margin:0 0 8px;color:#126638}.quizintro{display:flex;justify-content:space-between;gap:14px;align-items:start;flex-wrap:wrap}.scorepill{background:#eaf2ff;color:#174b9b;border-radius:10px;padding:9px 13px;font-weight:850}.quiz-progress{height:9px;background:#e4ebf5;border-radius:10px;overflow:hidden;margin:13px 0 20px}.quiz-progress>div{height:100%;width:0;background:linear-gradient(90deg,#1765e8,#62a6ff);transition:width .2s}.question{font-size:21px;font-weight:850;margin:8px 0 16px}.qmeta{font-size:13px;color:var(--muted);font-weight:650}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.option{border:1px solid #cddbed;background:#fbfdff;text-align:left;border-radius:10px;padding:14px;font:inherit;cursor:pointer}.option:hover:not(:disabled){border-color:var(--blue);background:#f0f6ff}.option:disabled{cursor:default}.option.correct{border-color:#24a05a;background:#e9f9ef;color:#096633;font-weight:750}.option.wrong{border-color:#df5a65;background:#fff0f1;color:#a21f2d;font-weight:750}.feedback{display:none;margin-top:15px;padding:14px;border-radius:10px;background:#f3f7fd;border:1px solid var(--line)}.feedback.visible{display:block}.feedback.good{background:#effbf3;border-color:#bfe8cc}.feedback.bad{background:#fff4f4;border-color:#ffd1d6}.quizfooter{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}.result{display:none;text-align:center;padding:24px}.result.visible{display:block}.result .bigscore{font-size:48px;font-weight:900;color:var(--blue)}.result h3{font-size:25px;margin:8px 0}.resultgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:20px 0}.resultstat{background:#f3f7fc;border:1px solid var(--line);padding:14px;border-radius:10px}.resultstat strong{display:block;font-size:25px}.info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.info{border:1px solid var(--line);background:#fbfdff;border-radius:10px;padding:16px}.info h3{margin:0 0 7px}.info p{margin:0;color:var(--muted)}footer{text-align:center;padding:12px;color:var(--muted);font-size:13px}
+
+.challenge-layout{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.5fr);gap:16px}
+.challenge-config{background:#f5f8fe;border:1px solid var(--line);border-radius:11px;padding:16px}
+.challenge-sequence{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}
+.challenge-page{border:1px solid #cbd9ec;background:#fff;border-radius:7px;padding:8px 11px;font-weight:850}
+.challenge-page.current{outline:3px solid var(--navy)}
+.challenge-question{font-size:21px;font-weight:850;margin:14px 0}
+.challenge-answer-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.challenge-answer{border:1px solid #cbd9ec;border-radius:9px;padding:12px;background:#fff;text-align:left;font:inherit;cursor:pointer}
+.challenge-answer:hover:not(:disabled){border-color:var(--blue);background:#f0f6ff}
+.challenge-answer.correct{background:#e9f9ef;border-color:#24a05a;color:#096633;font-weight:800}
+.challenge-answer.wrong{background:#fff0f1;border-color:#df5a65;color:#a21f2d;font-weight:800}
+.challenge-feedback{margin-top:12px;padding:12px;border-radius:9px;background:#f2f6fc;border:1px solid var(--line);display:none}
+.challenge-feedback.visible{display:block}.challenge-feedback.good{background:#effbf3;border-color:#bfe8cc}.challenge-feedback.bad{background:#fff4f4;border-color:#ffd1d6}
+.challenge-stats{display:flex;gap:8px;flex-wrap:wrap}.challenge-stat{background:#edf4ff;border-radius:8px;padding:8px 12px;font-weight:800}
+@media(max-width:800px){.challenge-layout{grid-template-columns:1fr}.challenge-answer-grid{grid-template-columns:1fr}}
+
+
+/* V5 learning, accessibility, and experiment additions */
+:focus-visible{outline:3px solid #f0a51a!important;outline-offset:3px}
+body.high-contrast{--bg:#fff;--ink:#000;--muted:#252525;--line:#777;--fault:#ffd0d0;--faultText:#870000;--hit:#c7e7ff;--hitText:#003c75}
+.utility-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.toggle-label{display:flex;align-items:center;gap:8px;font-weight:700;margin:0}
+.toggle-label input{width:18px;min-height:18px}
+.stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}
+.statbox{background:#f3f7fc;border:1px solid var(--line);border-radius:10px;padding:13px}
+.statbox strong{display:block;font-size:23px}
+.experiment-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.experiment-result{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fbfdff}
+.experiment-result h3{margin:0 0 8px}
+.anomaly-note{padding:14px;border-radius:10px;background:#fff5dc;border:1px solid #f1d38c;margin-top:14px}
+.review-list{display:grid;gap:9px;margin-top:15px}
+.review-item{border:1px solid var(--line);border-radius:9px;padding:12px}
+.review-item.correct-review{border-left:5px solid #1c9a54}
+.review-item.wrong-review{border-left:5px solid #d33b4a}
+.review-item summary{cursor:pointer;font-weight:800}
+.small{font-size:13px;color:var(--muted)}
+@media(max-width:900px){.experiment-grid{grid-template-columns:1fr}.stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{header,nav,.setup,.playback,.actions,button,.utility-row{display:none!important}body{background:white}.panel,.card{box-shadow:none;break-inside:avoid}.view{display:none!important}#practice.view.visible,#sim.view.visible,#experiments.view.visible{display:block!important}}
+
 @media(max-width:1150px){.setup{grid-template-columns:1fr 180px}.setup>.actions{grid-column:1/-1}.playback{grid-template-columns:1fr 1fr}.message{grid-column:1/-1}.algorithms{grid-template-columns:1fr}.bottom{grid-template-columns:1fr}}
 @media(max-width:650px){.setup,.playback{grid-template-columns:1fr}.setup>.actions,.message{grid-column:auto}.panel{padding:14px}.options,.info-grid{grid-template-columns:1fr}.actions .btn{flex:1}.resultgrid{grid-template-columns:1fr}}
 </style></head><body>
-<header><div class="brand"><span class="logo">▤</span><div><h1>Page Replacement Lab</h1><p>Learn FIFO, LRU and Optimal interactively</p></div></div><nav><button class="active" data-view="sim">⌂ Simulator</button><button data-view="practice">✎ Practice</button><button data-view="theory">▤ Theory</button><button data-view="examples">✦ Examples</button><button data-view="about">ⓘ About</button></nav></header>
+<header><div class="brand"><span class="logo">▤</span><div><h1>Page Replacement Lab</h1><p>Learn FIFO, LRU and Optimal interactively</p></div></div><nav><button class="active" data-view="sim">⌂ Simulator</button><button data-view="practice">✎ Practice</button><button data-view="challenge">⚡ Challenge</button><button data-view="experiments">🧪 Experiments</button><button data-view="theory">▤ Theory</button><button data-view="examples">✦ Examples</button><button data-view="about">ⓘ About</button></nav></header>
 <main>
-<section id="sim" class="view visible"><div class="panel"><h2>⚙️ Simulation setup</h2><p class="sub">Set the page references and memory frames, then explore each step.</p><div class="setup"><div><label for="refs">Page reference string</label><input id="refs" value="7,0,1,2,0,3,0,4,2,3,0,3,2"><p class="help">Use comma- or space-separated non-negative page numbers. Up to 100 references.</p></div><div><label for="framesInput">Number of frames (1–10)</label><div class="stepper"><button id="minus" type="button">−</button><input id="framesInput" type="number" min="1" max="10" value="3"><button id="plus" type="button">+</button></div></div><div class="actions"><button class="btn primary" id="run">▶ Run all</button><button class="btn" id="stepMode">⏭ Start step mode</button><button class="btn" id="reset">↻ Reset</button></div></div><p id="error" class="error" role="alert"></p><div class="refhead"><strong>Page reference string <span id="count" class="notice"></span></strong><div class="legend"><span><i class="swatch" style="background:var(--fault)"></i>Fault</span><span><i class="swatch" style="background:var(--hit)"></i>Hit</span></div></div><div id="strip" class="strip"></div><div class="playback"><div class="actions"><button class="btn" id="prev">◀ Previous</button><button class="btn primary" id="play">▶ Play</button><button class="btn" id="next">Next ▶</button></div><div class="progressrow"><strong id="stepLabel">Step 0 / 13</strong><div class="progress"><div id="fill" class="fill"></div></div><label for="speed" style="margin:0">Speed</label><select id="speed" style="width:100px;min-height:38px"><option value="1500">Slow</option><option value="850" selected>Normal</option><option value="350">Fast</option></select></div><div id="message" class="message"><strong>Ready to begin</strong>Press Next or Play to inspect memory access step by step.</div></div></div><div id="algorithms" class="algorithms"></div><div class="bottom"><div class="panel"><h2>📊 Performance comparison</h2><p id="chartsub" class="sub">Page faults for each algorithm.</p><div id="bars" class="bars"></div><p class="notice">A page fault means the requested page is not in memory. A hit means it is already loaded.</p></div><aside class="takeaway"><h3>🏆 Key takeaway</h3><p id="takeaway"></p><ul id="summary"></ul></aside></div></section>
-<section id="practice" class="view"><div class="panel"><div class="quizintro"><div><h2>✎ Student Practice Mode</h2><p class="sub">Ten questions about page hits, faults, victim selection, and algorithm behavior.</p><p class="notice">Questions use the reference string and frame count currently set in Simulator.</p></div><div class="scorepill" id="scorePill">Score: 0 / 0</div></div><div id="quizArea"><div class="quiz-progress"><div id="quizFill"></div></div><div class="qmeta" id="qmeta">Question 1 of 10</div><div class="question" id="question">Click Start quiz when ready.</div><div class="options" id="options"></div><div class="feedback" id="feedback" aria-live="polite"></div><div class="quizfooter"><button class="btn" id="restartQuiz">↻ Restart quiz</button><button class="btn primary" id="startQuiz">Start quiz</button><button class="btn primary" id="nextQuestion" disabled>Next question →</button></div></div><div id="quizResult" class="result"><div class="bigscore" id="bigScore">0/10</div><h3 id="resultTitle">Practice complete</h3><p id="resultText"></p><div class="resultgrid"><div class="resultstat"><strong id="correctCount">0</strong>Correct</div><div class="resultstat"><strong id="wrongCount">0</strong>Incorrect</div><div class="resultstat"><strong id="percent">0%</strong>Score</div></div><button class="btn primary" id="again">Try again</button></div></div></section>
+<section id="sim" class="view visible"><div class="panel"><h2>⚙️ Simulation setup</h2><p class="sub">Set the page references and memory frames, then explore each step.</p><div class="setup"><div><label for="refs">Page reference string</label><input id="refs" value="7,0,1,2,0,3,0,4,2,3,0,3,2"><p class="help">Use comma- or space-separated non-negative page numbers. Up to 100 references.</p></div><div><label for="framesInput">Number of frames (1–10)</label><div class="stepper"><button id="minus" type="button">−</button><input id="framesInput" type="number" min="1" max="10" value="3"><button id="plus" type="button">+</button></div></div><div class="actions"><button class="btn primary" id="run">▶ Run all</button><button class="btn" id="stepMode">⏭ Start step mode</button><button class="btn" id="reset">↻ Reset</button></div></div><p id="error" class="error" role="alert"></p><div class="utility-row"><button class="btn" id="exportCsv">⬇ Export simulation CSV</button><button class="btn" id="printReport">▤ Print report</button><label class="toggle-label"><input type="checkbox" id="contrastToggle"> High contrast</label></div><div class="refhead"><strong>Page reference string <span id="count" class="notice"></span></strong><div class="legend"><span><i class="swatch" style="background:var(--fault)"></i>Fault</span><span><i class="swatch" style="background:var(--hit)"></i>Hit</span></div></div><div id="strip" class="strip"></div><div class="playback"><div class="actions"><button class="btn" id="prev">◀ Previous</button><button class="btn primary" id="play">▶ Play</button><button class="btn" id="next">Next ▶</button></div><div class="progressrow"><strong id="stepLabel">Step 0 / 13</strong><div class="progress"><div id="fill" class="fill"></div></div><label for="speed" style="margin:0">Speed</label><select id="speed" style="width:100px;min-height:38px"><option value="1500">Slow</option><option value="850" selected>Normal</option><option value="350">Fast</option></select></div><div id="message" class="message"><strong>Ready to begin</strong>Press Next or Play to inspect memory access step by step.</div></div></div><div id="algorithms" class="algorithms"></div><div class="bottom"><div class="panel"><h2>📊 Performance comparison</h2><p id="chartsub" class="sub">Page faults for each algorithm.</p><div id="bars" class="bars"></div><p class="notice">A page fault means the requested page is not in memory. A hit means it is already loaded.</p></div><aside class="takeaway"><h3>🏆 Key takeaway</h3><p id="takeaway"></p><ul id="summary"></ul></aside></div></section>
+<section id="practice" class="view"><div class="panel"><div class="quizintro"><div><h2>✎ Student Practice Mode</h2><p class="sub">Ten questions about page hits, faults, victim selection, and algorithm behavior.</p><p class="notice">Questions use the reference string and frame count currently set in Simulator.</p></div><div class="scorepill" id="scorePill">Score: 0 / 0</div></div><div id="quizArea"><div class="quiz-progress"><div id="quizFill"></div></div><div class="qmeta" id="qmeta">Question 1 of 10</div><div class="question" id="question">Click Start quiz when ready.</div><div class="options" id="options"></div><div class="feedback" id="feedback" aria-live="polite"></div><div class="quizfooter"><button class="btn" id="restartQuiz">↻ Restart quiz</button><button class="btn primary" id="startQuiz">Start quiz</button><button class="btn primary" id="nextQuestion" disabled>Next question →</button></div></div><div id="quizResult" class="result"><div class="bigscore" id="bigScore">0/10</div><h3 id="resultTitle">Practice complete</h3><p id="resultText"></p><div class="resultgrid"><div class="resultstat"><strong id="correctCount">0</strong>Correct</div><div class="resultstat"><strong id="wrongCount">0</strong>Incorrect</div><div class="resultstat"><strong id="percent">0%</strong>Score</div></div><button class="btn primary" id="again">Try again</button><button class="btn" id="reviewToggle">Review answers</button><div id="answerReview" class="review-list" style="display:none;text-align:left"></div></div></div></section>
+
+<section id="challenge" class="view"><div class="panel"><h2>⚡ Student Challenge Mode</h2><p class="sub">Practise with a randomly generated page-reference string. Choose an algorithm and difficulty, then predict what happens at each step.</p>
+<div class="challenge-layout"><aside class="challenge-config"><label for="challengeDifficulty">Difficulty</label><select id="challengeDifficulty"><option value="easy">Easy · 8 references, 3 frames</option><option value="medium" selected>Medium · 12 references, 3 frames</option><option value="hard">Hard · 16 references, 4 frames</option></select><label for="challengeAlgorithm" style="margin-top:14px">Algorithm</label><select id="challengeAlgorithm"><option value="FIFO">FIFO — First In, First Out</option><option value="LRU">LRU — Least Recently Used</option><option value="Optimal">Optimal — Future knowledge</option></select><button class="btn primary" id="generateChallenge" style="width:100%;margin-top:15px">🎲 Generate new challenge</button><p class="notice">Each new challenge creates a fresh sequence. Your score applies only to the current challenge.</p><div class="challenge-stats"><span class="challenge-stat" id="challengeScore">Score: 0 / 0</span><span class="challenge-stat" id="challengeProgress">Step: 0 / 8</span></div></aside>
+<div><strong>Reference sequence</strong><div id="challengeSequence" class="challenge-sequence"></div><div id="challengePrompt" class="challenge-question">Generate a challenge to begin.</div><div id="challengeOptions" class="challenge-answer-grid"></div><div id="challengeFeedback" class="challenge-feedback" aria-live="polite"></div><div class="quizfooter"><button class="btn" id="challengeSkip">Skip question</button><button class="btn primary" id="challengeNext" disabled>Next →</button></div><div id="challengeResult" class="feedback" style="margin-top:15px"></div></div></div></div></section>
+
+
+<section id="experiments" class="view"><div class="panel">
+<h2>🧪 Experiments & Belady's Anomaly</h2>
+<p class="sub">Explore how page faults change as the number of frames changes. This classic reference string demonstrates that FIFO can sometimes produce more faults with more frames.</p>
+<div class="setup"><div><label for="experimentRefs">Reference string</label><input id="experimentRefs" value="1,2,3,4,1,2,5,1,2,3,4,5"><p class="help">Use non-negative page numbers separated by commas or spaces.</p></div><div><label for="experimentMaxFrames">Maximum frames (2–8)</label><input id="experimentMaxFrames" type="number" min="2" max="8" value="5"></div><div class="actions"><button class="btn primary" id="runExperiment">Run experiment</button><button class="btn" id="classicAnomaly">Load classic anomaly</button><button class="btn" id="runSelfTests">✓ Run algorithm self-checks</button></div></div>
+<p id="experimentError" class="error" role="alert"></p>
+<div class="stat-grid"><div class="statbox"><span class="small">FIFO faults at 3 frames</span><strong id="fifo3">—</strong></div><div class="statbox"><span class="small">FIFO faults at 4 frames</span><strong id="fifo4">—</strong></div><div class="statbox"><span class="small">LRU trend</span><strong id="lruTrend">—</strong></div><div class="statbox"><span class="small">Optimal trend</span><strong id="optTrend">—</strong></div></div>
+<div class="experiment-grid"><div class="experiment-result"><h3>Page faults by frame count</h3><div id="experimentChart" class="bars"></div><p class="notice">Each group compares FIFO, LRU, and Optimal for the same number of frames.</p></div><div class="experiment-result"><h3>Results table</h3><div class="tablewrap"><table id="experimentTable"><thead><tr><th>Frames</th><th>FIFO faults</th><th>LRU faults</th><th>Optimal faults</th></tr></thead><tbody></tbody></table></div><div id="anomalyResult" class="anomaly-note">Run the experiment to check for Belady's anomaly.</div><div id="selfTestResults" class="anomaly-note" style="display:none;margin-top:10px"></div></div></div>
+<div class="anomaly-note"><strong>What is Belady's anomaly?</strong> For some reference strings, FIFO can produce more page faults when the number of frames increases. LRU and Optimal are stack algorithms, so their page-fault counts do not increase when additional frames are added.</div>
+</div></section>
+
 <section id="theory" class="view"><div class="panel"><h2>📘 How the algorithms work</h2><p class="sub">When memory frames are full, the operating system must choose a page to remove.</p><div class="info-grid"><article class="info"><h3>FIFO — First In, First Out</h3><p>Removes the page that entered memory earliest, regardless of how recently it was used.</p></article><article class="info"><h3>LRU — Least Recently Used</h3><p>Removes the page that has not been used for the longest time in the past.</p></article><article class="info"><h3>Optimal</h3><p>Removes the page whose next use is farthest in the future, or that will never be used again. It is a benchmark because future references are not normally known.</p></article></div></div></section>
 <section id="examples" class="view"><div class="panel"><h2>✦ Try an example</h2><p class="sub">Load a preset into the simulator.</p><div class="info-grid"><article class="info"><h3>Classic example</h3><p>7,0,1,2,0,3,0,4,2,3,0,3,2 · 3 frames</p><p style="margin-top:12px"><button class="btn primary preset" data-r="7,0,1,2,0,3,0,4,2,3,0,3,2" data-f="3">Load example</button></p></article><article class="info"><h3>Repeated access</h3><p>1,2,3,1,2,4,1,2,3,4 · 3 frames</p><p style="margin-top:12px"><button class="btn primary preset" data-r="1,2,3,1,2,4,1,2,3,4" data-f="3">Load example</button></p></article><article class="info"><h3>Small memory</h3><p>1,2,3,4,1,2,5,1,2,3,4,5 · 3 frames</p><p style="margin-top:12px"><button class="btn primary preset" data-r="1,2,3,4,1,2,5,1,2,3,4,5" data-f="3">Load example</button></p></article></div></div></section>
 <section id="about" class="view"><div class="panel"><h2>ⓘ About this lab</h2><p>This browser-based teaching tool demonstrates FIFO, LRU, and Optimal page replacement. The simulator and quiz run locally in your browser; no data is uploaded.</p></div></section>
-</main><footer>Operating Systems · Memory Management · Interactive learning tool</footer>
+</main><footer>
+<div style="font-weight:800;font-size:16px;color:var(--ink);margin-bottom:5px">Developed by Dr. Gokulakrishnan S</div>
+<div>Associate Professor</div>
+<div>Department of Computer Science and Engineering</div>
+<div>PES University, Electronic City Campus</div>
+<div>Bengaluru–560100, Karnataka, India</div>
+<div style="margin-top:8px">Operating Systems · Memory Management · Interactive learning tool</div>
+</footer>
 <script>
 (()=>{const $=id=>document.getElementById(id),algorithms=['FIFO','LRU','Optimal'];let refs=[],frames=3,results={},step=0,timer=null,quiz=[],qIndex=0,score=0,answered=0,quizStarted=false;
 function stop(){if(timer){clearInterval(timer);timer=null}$('play').textContent='▶ Play'}
@@ -103,6 +166,166 @@ function showQuestion(){const q=quiz[qIndex];$('qmeta').textContent=`Question ${
 function answer(index){if($('options').querySelector('button:disabled'))return;const q=quiz[qIndex],chosen=q.options[index],correct=chosen===q.correct;answered++;if(correct)score++;$('options').querySelectorAll('button').forEach((b,i)=>{b.disabled=true;if(q.options[i]===q.correct)b.classList.add('correct');else if(i===index)b.classList.add('wrong')});const f=$('feedback');f.className=`feedback visible ${correct?'good':'bad'}`;f.innerHTML=`<strong>${correct?'✓ Correct!':'✗ Not quite.'}</strong>${q.explain}`;$('scorePill').textContent=`Score: ${score} / ${answered}`;$('nextQuestion').disabled=false;$('quizFill').style.width=`${(qIndex+1)/quiz.length*100}%`}
 function showResults(){ $('quizArea').style.display='none';$('quizResult').classList.add('visible');$('bigScore').textContent=`${score}/10`;$('resultTitle').textContent=score>=8?'Excellent work!':score>=5?'Good effort — keep practising!':'Keep practising — you can improve!';$('resultText').textContent=`You answered ${score} out of 10 questions correctly using ${refs.length} references and ${frames} frame(s).`;$('correctCount').textContent=score;$('wrongCount').textContent=10-score;$('percent').textContent=Math.round(score/10*100)+'%';$('quizFill').style.width='100%'}
 $('startQuiz').onclick=startQuiz;$('restartQuiz').onclick=()=>{buildQuiz()};$('again').onclick=()=>{startQuiz()};$('nextQuestion').onclick=()=>{if(qIndex<quiz.length-1){qIndex++;showQuestion()}else showResults()};
+
+// Randomized challenge mode: the same reference string is simulated using the selected algorithm.
+let challengeRefs=[],challengeFrames=3,challengeRows=[],challengeIndex=0,challengeScore=0,challengeAnswered=false,challengeSkipped=0;
+function createChallenge(){
+ const level=$('challengeDifficulty').value;
+ const cfg=level==='easy'?{n:8,f:3,max:5}:level==='medium'?{n:12,f:3,max:6}:{n:16,f:4,max:8};
+ challengeFrames=cfg.f;
+ const pool=Array.from({length:cfg.max},(_,i)=>i+1);
+ challengeRefs=[];
+ // Use a small working set with repeats so each challenge includes both hits and faults.
+ for(let i=0;i<cfg.n;i++){
+   if(i>1&&Math.random()<0.38) challengeRefs.push(challengeRefs[Math.floor(Math.random()*challengeRefs.length)]);
+   else challengeRefs.push(pool[Math.floor(Math.random()*pool.length)]);
+ }
+ const algo=$('challengeAlgorithm').value,mem=Array(challengeFrames).fill(null),last=new Map(),rows=[];
+ let ptr=0;
+ challengeRefs.forEach((page,i)=>{
+  let result='FAULT',replaced=null,slot=-1;
+  if(mem.includes(page)) result='HIT';
+  else{
+   const empty=mem.indexOf(null);
+   if(empty!==-1)slot=empty;
+   else if(algo==='FIFO'){slot=ptr;ptr=(ptr+1)%challengeFrames}
+   else if(algo==='LRU'){slot=0;for(let j=1;j<challengeFrames;j++)if((last.get(mem[j])??-1)<(last.get(mem[slot])??-1))slot=j}
+   else{let far=-1;slot=0;for(let j=0;j<challengeFrames;j++){const next=challengeRefs.indexOf(mem[j],i+1);if(next===-1){slot=j;far=Infinity;break}if(next>far){far=next;slot=j}}}
+   replaced=mem[slot];mem[slot]=page;
+   if(algo==='FIFO'&&empty!==-1)ptr=(slot+1)%challengeFrames;
+  }
+  last.set(page,i);rows.push({page,result,replaced,slot,frames:mem.slice()});
+ });
+ challengeRows=rows;challengeIndex=0;challengeScore=0;challengeSkipped=0;challengeAnswered=false;
+ $('challengeScore').textContent='Score: 0 / 0';
+ $('challengeProgress').textContent=`Step: 0 / ${challengeRefs.length}`;
+ $('challengeSequence').innerHTML=challengeRefs.map((p,i)=>`<span class="challenge-page" data-cpage="${i}">${p}</span>`).join('');
+ $('challengeResult').className='feedback';$('challengeResult').style.display='none';
+ showChallengeQuestion();
+}
+function showChallengeQuestion(){
+ if(challengeIndex>=challengeRefs.length){finishChallenge();return}
+ challengeAnswered=false;
+ const row=challengeRows[challengeIndex],algo=$('challengeAlgorithm').value;
+ $('challengeSequence').querySelectorAll('[data-cpage]').forEach((el,i)=>el.classList.toggle('current',i===challengeIndex));
+ $('challengePrompt').textContent=`Step ${challengeIndex+1}: page ${row.page}. What does ${algo} report?`;
+ let options=['HIT','FAULT'];
+ if(row.result==='FAULT'&&row.replaced!==null&&challengeIndex%2===1){
+   $('challengePrompt').textContent=`Step ${challengeIndex+1}: page ${row.page} causes a fault. Which page does ${algo} replace?`;
+   const pool=[...new Set(challengeRefs.map(String).filter(v=>v!==String(row.replaced)))];
+   pool.sort(()=>Math.random()-.5);
+   options=[String(row.replaced),...pool.slice(0,3)];
+   while(options.length<4){const candidate=String(Number(options[options.length-1]||0)+1);if(!options.includes(candidate))options.push(candidate);else options.push(String(Number(candidate)+1))}
+ }else{
+   $('challengePrompt').textContent=`Step ${challengeIndex+1}: page ${row.page}. What does ${algo} report?`;
+   options=['HIT','FAULT'];
+ }
+ options=[...new Set(options)];
+ options.sort(()=>Math.random()-.5);
+ $('challengeOptions').innerHTML=options.map((v,i)=>`<button class="challenge-answer" data-canswer="${i}">${String.fromCharCode(65+i)}. ${v}</button>`).join('');
+ $('challengeOptions').querySelectorAll('[data-canswer]').forEach(b=>b.onclick=()=>answerChallenge(+b.dataset.canswer,options));
+ $('challengeFeedback').className='challenge-feedback';$('challengeFeedback').style.display='none';$('challengeFeedback').innerHTML='';
+ $('challengeNext').disabled=true;$('challengeNext').textContent=challengeIndex===challengeRefs.length-1?'Finish →':'Next →';
+ $('challengeProgress').textContent=`Step: ${challengeIndex} / ${challengeRefs.length}`;
+}
+function answerChallenge(index,options){
+ if(challengeAnswered)return;challengeAnswered=true;
+ const row=challengeRows[challengeIndex],algo=$('challengeAlgorithm').value;
+ const victimQuestion=row.result==='FAULT'&&row.replaced!==null&&challengeIndex%2===1;
+ const correct=victimQuestion?String(row.replaced):row.result;
+ const chosen=options[index],ok=chosen===correct;
+ if(ok)challengeScore++;
+ $('challengeOptions').querySelectorAll('button').forEach((b,i)=>{b.disabled=true;if(options[i]===correct)b.classList.add('correct');else if(i===index)b.classList.add('wrong')});
+ const f=$('challengeFeedback');f.style.display='block';f.className=`challenge-feedback visible ${ok?'good':'bad'}`;
+ let reason=row.result==='HIT'?`Page ${row.page} is already in memory, so this is a hit.`:row.replaced===null?`A free frame was available, so page ${row.page} was loaded without replacing another page.`:algo==='FIFO'?`FIFO replaces page ${row.replaced}, which entered memory earliest.`:algo==='LRU'?`LRU replaces page ${row.replaced}, which was least recently used.`:`Optimal replaces page ${row.replaced}, whose next use is farthest in the future or never occurs again.`;
+ f.innerHTML=`<strong>${ok?'✓ Correct!':'✗ Not quite.'}</strong>${victimQuestion?`The correct victim is page ${row.replaced}. `:`The correct result is ${row.result}. `}${reason}`;
+ $('challengeScore').textContent=`Score: ${challengeScore} / ${challengeIndex+1}`;
+ $('challengeProgress').textContent=`Step: ${challengeIndex+1} / ${challengeRefs.length}`;
+ $('challengeNext').disabled=false;
+}
+function finishChallenge(){
+ $('challengePrompt').textContent='Challenge complete!';
+ $('challengeOptions').innerHTML='';
+ $('challengeFeedback').style.display='none';
+ $('challengeResult').style.display='block';$('challengeResult').className='feedback visible good';
+ const pct=Math.round(challengeScore/challengeRefs.length*100);
+ $('challengeResult').innerHTML=`<strong>Final score: ${challengeScore} / ${challengeRefs.length} (${pct}%)</strong>${pct>=80?'Excellent work!':pct>=50?'Good effort — keep practising!':'Keep practising. Review the explanation for each algorithm and try another sequence.'}`;
+ $('challengeScore').textContent=`Score: ${challengeScore} / ${challengeRefs.length}`;
+ $('challengeProgress').textContent=`Step: ${challengeRefs.length} / ${challengeRefs.length}`;
+ $('challengeNext').disabled=true;$('challengeNext').textContent='Complete';
+}
+$('generateChallenge').onclick=createChallenge;
+$('challengeNext').onclick=()=>{if(challengeAnswered){challengeIndex++;showChallengeQuestion()}};
+$('challengeSkip').onclick=()=>{if(challengeRefs.length&&challengeIndex<challengeRefs.length&&!challengeAnswered){challengeSkipped++;challengeAnswered=true;$('challengeFeedback').style.display='block';$('challengeFeedback').className='challenge-feedback visible bad';$('challengeFeedback').innerHTML=`<strong>Skipped.</strong>The correct answer is ${challengeRows[challengeIndex].result}${challengeRows[challengeIndex].result==='FAULT'&&challengeRows[challengeIndex].replaced!==null&&challengeIndex%2===1?` (victim page ${challengeRows[challengeIndex].replaced})`:''}.`;$('challengeNext').disabled=false;$('challengeScore').textContent=`Score: ${challengeScore} / ${challengeIndex+1}`}};
+$('challengeAlgorithm').onchange=()=>{if(challengeRefs.length)createChallenge()};
+$('challengeDifficulty').onchange=()=>{if(challengeRefs.length)createChallenge()};
+
+
+// Export simulator rows for all three algorithms as CSV.
+function csvEscape(v){const s=String(v??'');return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+$('exportCsv').onclick=()=>{
+ const headers=['Algorithm','Step','Requested page',...Array.from({length:frames},(_,i)=>`Frame ${i+1}`),'Result','Replaced page','Cumulative faults','Cumulative hits'];
+ const lines=[headers];
+ algorithms.forEach(a=>results[a].rows.forEach((r,i)=>lines.push([a,i+1,r.page,...r.frames.map(v=>v===null?'':v),r.result,r.replaced??'',r.faults,r.hits])));
+ const blob=new Blob([lines.map(row=>row.map(csvEscape).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'});
+ const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='page-replacement-results.csv';link.click();URL.revokeObjectURL(url);
+};
+$('printReport').onclick=()=>window.print();
+$('contrastToggle').onchange=e=>document.body.classList.toggle('high-contrast',e.target.checked);
+// Quiz answer review stores the actual question, selected answer, correct answer, and explanation.
+const originalMakeQuestions=makeQuestions;
+let quizReview=[];
+const originalStartQuiz=startQuiz;
+startQuiz=function(){quizReview=[];originalStartQuiz()};
+const originalAnswer=answer;
+answer=function(index){const q=quiz[qIndex];if($('options').querySelector('button:disabled'))return;const chosen=q.options[index];quizReview[qIndex]={question:q.question,chosen,correct:q.correct,explain:q.explain,ok:chosen===q.correct};originalAnswer(index)};
+$('reviewToggle').onclick=()=>{const el=$('answerReview'),show=el.style.display==='none';el.style.display=show?'grid':'none';$('reviewToggle').textContent=show?'Hide answer review':'Review answers';if(show){el.innerHTML=quizReview.map((r,i)=>r?`<details class="review-item ${r.ok?'correct-review':'wrong-review'}" ${!r.ok?'open':''}><summary>Q${i+1}. ${r.ok?'Correct':'Incorrect'} — ${r.question}</summary><p><strong>Your answer:</strong> ${r.chosen}</p><p><strong>Correct answer:</strong> ${r.correct}</p><p>${r.explain}</p></details>`:'').join('')}};
+// Experiments use the same three algorithms as the simulator.
+function runFrameExperiment(){
+ const err=$('experimentError');err.style.display='none';
+ try{
+  const raw=$('experimentRefs').value.trim();if(!raw)throw Error('Enter a reference string.');
+  const seq=raw.split(/[,\s]+/).filter(Boolean).map(x=>{if(!/^\d+$/.test(x))throw Error('Use non-negative integer page numbers only.');return Number(x)});
+  if(seq.length>100)throw Error('Use 100 references or fewer.');
+  const max=Number($('experimentMaxFrames').value);if(!Number.isInteger(max)||max<2||max>8)throw Error('Maximum frames must be from 2 to 8.');
+  const count=(algo,n)=>{const mem=Array(n).fill(null),last=new Map();let ptr=0,faults=0;seq.forEach((p,i)=>{if(mem.includes(p)){last.set(p,i);return}faults++;const empty=mem.indexOf(null);let slot;if(empty!==-1)slot=empty;else if(algo==='FIFO'){slot=ptr;ptr=(ptr+1)%n}else if(algo==='LRU'){slot=0;for(let j=1;j<n;j++)if((last.get(mem[j])??-1)<(last.get(mem[slot])??-1))slot=j}else{let far=-1;slot=0;for(let j=0;j<n;j++){const next=seq.indexOf(mem[j],i+1);if(next===-1){slot=j;far=Infinity;break}if(next>far){far=next;slot=j}}}mem[slot]=p;if(algo==='FIFO'&&empty!==-1)ptr=(slot+1)%n;last.set(p,i)});return faults};
+  const rows=[];for(let n=1;n<=max;n++)rows.push({frames:n,FIFO:count('FIFO',n),LRU:count('LRU',n),Optimal:count('Optimal',n)});
+  $('experimentTable').querySelector('tbody').innerHTML=rows.map(r=>`<tr><td>${r.frames}</td><td>${r.FIFO}</td><td>${r.LRU}</td><td>${r.Optimal}</td></tr>`).join('');
+  const maxFault=Math.max(1,...rows.flatMap(r=>[r.FIFO,r.LRU,r.Optimal]));
+  $('experimentChart').style.height='240px';
+  $('experimentChart').innerHTML=rows.map(r=>`<div class="barcol" style="min-width:42px"><strong>${r.frames}f</strong><div style="display:flex;align-items:end;gap:3px;height:170px"><div class="bar" title="FIFO ${r.FIFO}" style="height:${Math.max(2,r.FIFO/maxFault*150)}px;width:14px"></div><div class="bar" title="LRU ${r.LRU}" style="height:${Math.max(2,r.LRU/maxFault*150)}px;width:14px;background:linear-gradient(#5fce8a,#1ca65b)"></div><div class="bar" title="Optimal ${r.Optimal}" style="height:${Math.max(2,r.Optimal/maxFault*150)}px;width:14px;background:linear-gradient(#ffbb55,#f28b18)"></div></div><span>${r.frames} frames</span></div>`).join('');
+  $('fifo3').textContent=rows.find(r=>r.frames===3)?.FIFO??'—';$('fifo4').textContent=rows.find(r=>r.frames===4)?.FIFO??'—';
+  $('lruTrend').textContent=rows.slice(1).some((r,i)=>r.LRU>rows[i].LRU)?'Check':'Non-increasing';$('optTrend').textContent=rows.slice(1).some((r,i)=>r.Optimal>rows[i].Optimal)?'Check':'Non-increasing';
+  const anomaly=rows.some((r,i)=>i>0&&r.FIFO>rows[i-1].FIFO);
+  $('anomalyResult').innerHTML=anomaly?'<strong>Belady’s anomaly found!</strong> FIFO has more faults with a larger frame count for this sequence. Try changing the sequence or use the classic example.':'<strong>No FIFO anomaly found in this sequence.</strong> This is normal for many sequences. Try the classic anomaly example to observe it.';
+ }catch(e){err.textContent=e.message;err.style.display='block'}
+}
+
+// Built-in deterministic regression checks for the core algorithms and edge cases.
+$('runSelfTests').onclick=()=>{
+ const box=$('selfTestResults');box.style.display='block';
+ const testCases=[
+  {name:'Classic reference string, 3 frames',seq:[7,0,1,2,0,3,0,4,2,3,0,3,2],frames:3,expected:{FIFO:10,LRU:9,Optimal:7}},
+  {name:'One frame, repeated page',seq:[4,4,4,4],frames:1,expected:{FIFO:1,LRU:1,Optimal:1}},
+  {name:'One frame, alternating pages',seq:[1,2,1,2],frames:1,expected:{FIFO:4,LRU:4,Optimal:4}},
+  {name:'All references identical',seq:[5,5,5,5,5],frames:3,expected:{FIFO:1,LRU:1,Optimal:1}},
+  {name:'Belady anomaly sequence with 3 frames',seq:[1,2,3,4,1,2,5,1,2,3,4,5],frames:3,expected:{FIFO:9,LRU:10,Optimal:7}}
+ ];
+ const run=(algo,seq,n)=>{const mem=Array(n).fill(null),last=new Map();let ptr=0,faults=0;seq.forEach((page,i)=>{if(mem.includes(page)){last.set(page,i);return}faults++;const empty=mem.indexOf(null);let slot;if(empty!==-1)slot=empty;else if(algo==='FIFO'){slot=ptr;ptr=(ptr+1)%n}else if(algo==='LRU'){slot=0;for(let j=1;j<n;j++)if((last.get(mem[j])??-1)<(last.get(mem[slot])??-1))slot=j}else{let far=-1;slot=0;for(let j=0;j<n;j++){const next=seq.indexOf(mem[j],i+1);if(next===-1){slot=j;far=Infinity;break}if(next>far){far=next;slot=j}}}mem[slot]=page;if(algo==='FIFO'&&empty!==-1)ptr=(slot+1)%n;last.set(page,i)});return faults};
+ const results=[];
+ testCases.forEach(t=>algorithms.forEach(algo=>{const got=run(algo,t.seq,t.frames),expected=t.expected[algo];results.push({name:`${t.name} — ${algo}`,pass:got===expected,got,expected})}));
+ // Verify empty input is rejected by the page-string parser.
+ const saved=$('refs').value;$('refs').value='';let emptyRejected=false;try{parse()}catch(e){emptyRejected=true}$('refs').value=saved;
+ results.push({name:'Empty reference string validation',pass:emptyRejected,got:emptyRejected?'Rejected correctly':'Accepted unexpectedly',expected:'Rejected correctly'});
+ const passed=results.filter(r=>r.pass).length;
+ box.className=`anomaly-note ${passed===results.length?'':'bad'}`;
+ box.innerHTML=`<strong>Self-check results: ${passed}/${results.length} passed</strong><div class="review-list">${results.map(r=>`<div class="review-item ${r.pass?'correct-review':'wrong-review'}"><strong>${r.pass?'✓':'✗'} ${r.name}</strong><div class="small">Expected: ${r.expected} · Actual: ${r.got}</div></div>`).join('')}</div>`;
+};
+
+$('runExperiment').onclick=runFrameExperiment;
+$('classicAnomaly').onclick=()=>{$('experimentRefs').value='1,2,3,4,1,2,5,1,2,3,4,5';$('experimentMaxFrames').value=5;runFrameExperiment()};
+$('experimentMaxFrames').onchange=()=>{if($('experimentMaxFrames').value)runFrameExperiment()};
+
 load(false);buildQuiz();
 })();
 </script></body></html>
