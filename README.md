@@ -37,6 +37,28 @@ The visualizer lets you enter a page-reference string, choose the number of fram
 *Interactive demonstration of FIFO, LRU, and Optimal page replacement algorithms.*
 
 [▶ Launch the live visualizer](https://gokulakrishnaans.github.io/CSE-teaching-resources/)
+
+## 📊 Sample Results
+
+Using the reference string `7,0,1,2,0,3,0,4,2,3,0,3,2` with **3 memory frames**:
+
+| Algorithm | Page Faults | Page Hits | Observation |
+|---|---:|---:|---|
+| FIFO | 10 | 3 | Replaces the oldest loaded page |
+| LRU | 9 | 4 | Replaces the least recently used page |
+| Optimal | 7 | 6 | Replaces the page needed farthest in the future |
+
+### Key Learning
+
+- **FIFO:** Simple to implement, but may replace a page that will soon be needed.
+- **LRU:** Uses recent access history to estimate future page use.
+- **Optimal:** Produces the minimum number of page faults for a known reference string and fixed frame count, making it a useful benchmark.
+
+**Experiment:** Change the page-reference string or number of frames in the [interactive visualizer](https://gokulakrishnaans.github.io/CSE-teaching-resources/) and compare the results.
+
+
+
+
 ## 👨‍🏫 About
 
 I am an Associate Professor in Computer Science and Engineering, interested in computer science education, software development, artificial intelligence, and practical learning.
