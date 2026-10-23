@@ -30,7 +30,13 @@ The visualizer lets you enter a page-reference string, choose the number of fram
 **Source code:** [View this repository](https://github.com/gokulakrishnaans/CSE-teaching-resources)
 
 ---
+### 📸 Visual Preview
 
+![Operating Systems Page Replacement Visualizer](1.png)
+
+*Interactive demonstration of FIFO, LRU, and Optimal page replacement algorithms.*
+
+[▶ Launch the live visualizer](https://gokulakrishnaans.github.io/CSE-teaching-resources/)
 ## 👨‍🏫 About
 
 I am an Associate Professor in Computer Science and Engineering, interested in computer science education, software development, artificial intelligence, and practical learning.
