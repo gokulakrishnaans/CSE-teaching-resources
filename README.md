@@ -1,4 +1,7 @@
 # CSE Teaching Resources 🎓
+[![Python Page Replacement Tests](https://github.com/gokulakrishnaans/CSE-teaching-resources/actions/workflows/python-tests.yml/badge.svg?branch=main)](https://github.com/gokulakrishnaans/CSE-teaching-resources/actions/workflows/python-tests.yml)
+
+
 
 **Practical learning resources, programming examples, and interactive demonstrations for Computer Science and Engineering.**
 
