@@ -1,10 +1,41 @@
 # CSE Teaching Resources 🎓
 
-Welcome to my Computer Science and Engineering teaching repository. This repository contains educational resources, programming examples, laboratory exercises, and practical demonstrations to support teaching and learning.
+**Practical learning resources, programming examples, and interactive demonstrations for Computer Science and Engineering.**
+
+Welcome to my CSE teaching repository! This project brings together educational materials that help students connect theoretical concepts with working implementations.
+
+🌐 **Website:** [gokulakrishnan.co.in](https://gokulakrishnan.co.in/)  
+👨‍🏫 **Maintainer:** Dr. Gokulakrishnan S
+
+---
+
+## 🚀 Featured Demonstration
+
+### Operating Systems — Page Replacement Visualizer
+
+Explore how operating systems manage memory when a requested page is not available in physical memory.
+
+**[▶ Launch the Interactive Visualizer](https://gokulakrishnaans.github.io/CSE-teaching-resources/)**
+
+Compare these algorithms:
+
+| Algorithm | Principle |
+|---|---|
+| FIFO | Replaces the page that entered memory first |
+| LRU | Replaces the page that was used least recently |
+| Optimal | Replaces the page whose next use is farthest in the future |
+
+The visualizer lets you enter a page-reference string, choose the number of frames, and compare page faults and hits.
+
+**Source code:** [View this repository](https://github.com/gokulakrishnaans/CSE-teaching-resources)
+
+---
 
 ## 👨‍🏫 About
 
 I am an Associate Professor in Computer Science and Engineering, interested in computer science education, software development, artificial intelligence, and practical learning.
+
+My goal is to make technical concepts easier to understand through clear explanations, executable examples, and interactive learning tools.
 
 ## 📚 Subject Areas
 
@@ -14,26 +45,64 @@ I am an Associate Professor in Computer Science and Engineering, interested in c
 - **Computer Networks:** Network protocols, addressing, and network programming
 - **Artificial Intelligence:** Machine learning fundamentals and Generative AI applications
 
-## 🧪 Repository Contents
+## 🗂️ Repository Structure
 
-Resources will be organized into subject-wise folders:
+```text
+CSE-teaching-resources/
+├── Operating-Systems/
+│   ├── README.md
+│   ├── page_replacement.py
+│   ├── sample_output.txt
+│   └── page-replacement-visualizer.html
+├── Data-Structures/
+├── DBMS/
+├── Computer-Networks/
+└── AI-ML/
+```
 
-- `Operating-Systems/` — programs, algorithm demonstrations, and exercises
-- `Data-Structures/` — implementations and practice problems
-- `DBMS/` — SQL examples and database exercises
-- `Computer-Networks/` — networking programs and demonstrations
-- `AI-ML/` — introductory AI/ML examples and experiments
+*The Operating Systems files above are part of the current project. The other subject folders are planned areas; add them as the corresponding resources become available.*
+
+## 💻 Getting Started
+
+### Use the interactive visualizer
+
+1. Open the [live page-replacement visualizer](https://gokulakrishnaans.github.io/CSE-teaching-resources/).
+2. Enter a page-reference string, such as `7,0,1,2,0,3,0,4,2,3,0,3,2`.
+3. Select the number of memory frames.
+4. Compare FIFO, LRU, and Optimal results.
+
+### Run the Python implementation
+
+Requirements: Python 3.
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/gokulakrishnaans/CSE-teaching-resources.git
+   ```
+
+2. Open the project directory:
+
+   ```bash
+   cd CSE-teaching-resources
+   ```
+
+3. Run the implementation:
+
+   ```bash
+   python Operating-Systems/page_replacement.py
+   ```
 
 ## 🎯 Objectives
 
-- Support practical and outcome-based learning
-- Connect theoretical concepts with working implementations
-- Provide examples that students can study and extend
-- Encourage reproducible experiments and collaborative learning
+- Support practical and outcome-based learning.
+- Connect theoretical concepts with working implementations.
+- Provide examples that students can study, modify, and extend.
+- Encourage reproducible experiments and collaborative learning.
 
-## 💻 Technologies
+## 🛠️ Technologies
 
-Technologies will depend on the subject and example, including Python, C, Java, SQL, and other relevant tools.
+Depending on the resource, this repository may use Python, C, Java, SQL, HTML, CSS, JavaScript, and other relevant tools.
 
 ## 🤝 Contributions
 
@@ -45,5 +114,4 @@ These materials are intended for educational purposes. Students should follow th
 
 ---
 
-**Maintained by:** Dr. Gokulakrishnan S  
-**Focus:** Computer Science Education, Teaching Resources, and Technical Innovation
+**Teaching · Research · Innovation · Lifelong Learning**
